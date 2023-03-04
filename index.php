@@ -1,8 +1,12 @@
 <?php
-    spl_autoload_register();
 
-    use App\Controller\Controller;
+define('_ROOTPATH_', __DIR__);
 
-    $controller = new Controller();
-    $controller->route();
+spl_autoload_register();
+
+use App\Controller\Controller;
+
+$controller = new Controller();
+$controller->route();
+
 ?>
