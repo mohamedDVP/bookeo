@@ -84,5 +84,5 @@ class Bateau extends Vehicule {
     
 }
 
-$voiture = new Voiture("Toyota", 275, 4);
-$voiture->Klaxonner();
+$voiture = new Voiture("Toyota", 275);
+$voiture->getVitesseMax();
