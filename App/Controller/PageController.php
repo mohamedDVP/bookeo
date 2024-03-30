@@ -6,24 +6,32 @@ class PageController extends Controller
 {
     public function route():void 
     {
-        if(isset($_GET['action']))
-        {
-            switch($_GET['action'])
+        try{
+            if(isset($_GET['action']))
             {
-                case 'about':
-                    // appeler la méthode about()
-                    $this->about();
-                    break;
-                case 'home':
-                    // appeler la méthode home()
-                    var_dump('On appel la méthode home()');
-                    break;
-                default:
-                    // Erreur
+                switch($_GET['action'])
+                {
+                    case 'about':
+                        // appeler la méthode about()
+                        $this->about();
+                        break;
+                    case 'home':
+                        // appeler la méthode home()
+                        $this->home();
+                        break;
+                    default:
+                        throw new \Exception('Cette action n\'existe pas : '.$_GET['action']);
+                }
+            } else {
+               throw new \Exception('Aucune action définie');
             }
-        } else {
-            // charger la page d'accueil
         }
+        catch(\Exception $e){
+            $this->render('errors/default', [
+                'error' => $e->getMessage()
+            ]);
+        }
+        
     }
 
     protected function about()
@@ -32,9 +40,17 @@ class PageController extends Controller
             On passe en premier paramètre la page à charger
             et en deuxième un tableau associatif de paramètres
         */
-        $this->render('page/about', [
+        $this->render('page/about_us', [
             'test' => 'abc',
             'test2' => 'def'
+       ]);
+       
+    }
+
+    protected function home()
+    {
+        $this->render('page/home', [
+            
        ]);
        
     }

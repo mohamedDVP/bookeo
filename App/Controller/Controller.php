@@ -5,25 +5,37 @@ namespace App\Controller;
 Class Controller{
     public function route():void 
     {
-        if(isset($_GET['controller']))
-        {
-            switch($_GET['controller'])
+        try{
+            if(isset($_GET['controller']))
             {
-                case 'page':
-                    // charger le controller Page
-                    $pageController = new PageController();
-                    $pageController->route();
-                    break;
-                case 'book':
-                    // charger le controller Book
-                    var_dump('On charge BookController');
-                    break;
-                default:
-                    // Erreur
+                switch($_GET['controller'])
+                {
+                    case 'page':
+                        // charger le controller Page
+                        $pageController = new PageController();
+                        $pageController->route();
+                        break;
+                    case 'book':
+                        // charger le controller Book
+                        $pageController = new BookController();
+                        $pageController->route();
+                        break;
+                    default:
+                        throw new \Exception('Le controlleur n\'existe pas');
+                }
+            } else {
+                // charger la page d'accueil si pas de controleur dans l'url
+                $pageController = new PageController();
+                $pageController->home();
             }
-        } else {
-            // charger la page d'accueil
         }
+        catch(\Exception $e){
+            $this->render('errors/default', [
+                'error' => $e->getMessage()
+            ]);
+            
+        }
+        
     }
 
     protected function render(string $path, array $params = []): void
@@ -38,7 +50,9 @@ Class Controller{
                 require_once $filePath;
             }
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $this->render('errors/default', [
+                'error' => $e->getMessage()
+            ]);
         
         }
     }
