@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^a-propos/?$ /studi/VSCodeProjects/PHP/bookeo/index.php?controller=page&action=about
+RewriteRule ^accueil/?$ /studi/VSCodeProjects/PHP/bookeo/index.php?controller=page&action=home

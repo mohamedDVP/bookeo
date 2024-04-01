@@ -48,6 +48,11 @@ class BookController extends Controller
         
     }
 
+    /*
+        Exemple d'appel depuis l'url
+        ?controller=book&action=show&id=1
+    */
+
     protected function show()
     {
         try{
